@@ -3,21 +3,25 @@ language:
 - node_js
 node_js:
 - '6'
-env:
-- ACTION=test
-- ACTION="run lint"
-- ACTION="run cs-check"
-- ACTION="run dist"
-script:
-- npm $ACTION
-deploy:
-  provider: releases
-  api_key:
-    secure: hnLAyiOwE7joti7MYMuFmInK8467M9d2RY+viWGlmhPwedp1HjGj1JkKkJ4A8gbmh5vVH9Zuj5zfUKpodmI7NoA4Q7Rj/qlFTgDzOoWdXzEpQcmYEjJR4z0NcAYIrXXeV2GHsLX70A8Z49uO5Y/mdGyvmroG3DxD6nME2LRd8+QgYo14tt2JdZyzcl5F1qAx8/5MaT8hXyed3Utgola26sHGs4zt3VJTVsiyRvIbFxrhd5Ki3RlPN5/qhza9n6zBA3w5vyID/3njz1LZXY/rPPfOwYbbZV341LF2KxIz9uH4rHEvt9v307L9DLTgPfDtt22mErprqVqjAYdKnhGi6T0ZsAX1CbZMfOwFzNKXhT2EhXQBrsjbk3lpjrytPUthOZtwsalrwf1mCkCmeQM+5fSOKBPwU1ul9dOdpP2RNX9X8m4+8/Hs+UnFEsUjThdXt5z31xCwGnoyvI+MC2tW9sB7D//v8R9d22lzf3Bmbl64ixbK1admievGkpH1u0VMfP/tl+1pazyK3xBViC25D+NYgBzbOQ8aBmt/xy22ga9zUkHqNY4WvRPp95s3aUwElwrQpunddQh/lwCnxc2OhTt4yNKFlkKcU+A6EvDzT6MxpBOHal9JWtR6wxqX/0l4actI9EKS7qMol8SB+wK0NArZHOw3bVvH4oY8uhOx3yA=
-  file:
-    - dist/*
-    - lib/*
-    - package.json
-  on:
-    repo: pieplu/react-jsonschema-form
-    branch: dist
+
+jobs:
+  include:
+    - stage: unit test
+      script: npm test
+    - stage: lint
+      script: 
+        - npm run lint
+        - npm run cs-check
+    - stage: deploy release
+        script: echo "Deploy Github release"
+        deploy:
+          provider: releases
+          api_key:
+            secure: hnLAyiOwE7joti7MYMuFmInK8467M9d2RY+viWGlmhPwedp1HjGj1JkKkJ4A8gbmh5vVH9Zuj5zfUKpodmI7NoA4Q7Rj/qlFTgDzOoWdXzEpQcmYEjJR4z0NcAYIrXXeV2GHsLX70A8Z49uO5Y/mdGyvmroG3DxD6nME2LRd8+QgYo14tt2JdZyzcl5F1qAx8/5MaT8hXyed3Utgola26sHGs4zt3VJTVsiyRvIbFxrhd5Ki3RlPN5/qhza9n6zBA3w5vyID/3njz1LZXY/rPPfOwYbbZV341LF2KxIz9uH4rHEvt9v307L9DLTgPfDtt22mErprqVqjAYdKnhGi6T0ZsAX1CbZMfOwFzNKXhT2EhXQBrsjbk3lpjrytPUthOZtwsalrwf1mCkCmeQM+5fSOKBPwU1ul9dOdpP2RNX9X8m4+8/Hs+UnFEsUjThdXt5z31xCwGnoyvI+MC2tW9sB7D//v8R9d22lzf3Bmbl64ixbK1admievGkpH1u0VMfP/tl+1pazyK3xBViC25D+NYgBzbOQ8aBmt/xy22ga9zUkHqNY4WvRPp95s3aUwElwrQpunddQh/lwCnxc2OhTt4yNKFlkKcU+A6EvDzT6MxpBOHal9JWtR6wxqX/0l4actI9EKS7qMol8SB+wK0NArZHOw3bVvH4oY8uhOx3yA=
+          file:
+            - dist/*
+            - lib/*
+            - package.json
+          on:
+            repo: pieplu/react-jsonschema-form
+            branch: dist
