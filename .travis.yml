@@ -16,7 +16,12 @@ jobs:
     - export TRAVIS_TAG=$(date +'%Y%m%d-%H%M%S')
     - export FILENAME="react-jsonschema-form-${TRAVIS_TAG}.tar.gz"
     - npm run dist
-    - tar -czvf $FILENAME dist lib package.json README.md
+    - mkdir package
+    - cp -r dist package/
+    - cp -r lib package/
+    - cp package.json package/
+    - cp README.md package/
+    - tar -czvf $FILENAME package
     - echo "Deploy Github release"
     deploy:
       provider: releases
