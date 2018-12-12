@@ -13,21 +13,16 @@ jobs:
   include:
   - stage: deploy release
     script:
-    - export TRAVIS_TAG=${V-$(date +'%Y%m%d-%H%M%S')}
+    - export TRAVIS_TAG=$(date +'%Y%m%d-%H%M%S')
     - export FILENAME="react-jsonschema-form-${TRAVIS_TAG}.tar.gz"
     - npm run dist
     - tar -czvf $FILENAME dist lib package.json README.md
     - echo "Deploy Github release"
-    before_deploy:
-      - git config --local user.name "travis"
-      - git config --local user.email "alexis@pieplu.ca"
-      - git tag $TRAVIS_TAG
     deploy:
       provider: releases
       api_key:
         secure: MCQAAGeFP2xJQmjYKX+G5rMP/1PlsqhpAPK4d2wsF9AMi9S4OtNd9IjRwW9YllrNsXbnjDcpBbgqySZZ6n4z09jM/VEUVbbpSk7/uEYtrOxWuvWwcaX4ZW1qb1mgTadHbmgbPgUOAZ7ME7Ektty6tfC/Q7Fv0jpgfQ9eW46CknMhri2hR6erVrlamshWw3xt+/oOaMS7MRaLYvwjX5KAzy4Vr7ZaXt7km23jWlOI+YlaLLu5Ujq1yWCn1uzLtFvo5CYbfXr6VJmHBwVEqtl1F0tEnQIR8P0KTfIQT+MS03sbwWJtF/sPlTCHAh5i9eooGmjWgQPMiF6gb57YsZaARk0XPExj+RMlDaTQZ+XZ7605oKB8VNO+r2r1KjUzT0Aorn3R1CAqN6UuP/ihpwWD2rwAPuFU4yE4C+EyPdGs3Fd63WjjcShHG2Jd8ilFW3WUW1k8pDS0w1KU/aQI6hh0LjF5zEThR5nvE6y2XrQiP6PjhwGHD1fbWK900st1f14BRy8DNNBglwXqOCzJfj9JjWWYlQQUEpNoiNGgAi77LLwS8mmO0uDy4lGxuu467RdIWrrMjRX53UY1kdgOWvSE3U4K1PobqPTM4+J/RGtAXagvD7070iUHvP8PHNRzA43CIGdEl2xVAbcSr8msrAB6+e665NfjORBp3wf4adXUIco=
       skip_cleanup: true
-      draft: true
       file: $FILENAME
       on:
         repo: pieplu/react-jsonschema-form
