@@ -9,23 +9,22 @@ env:
 - ACTION="run cs-check"
 script:
 - npm $ACTION
-
 jobs:
   include:
-    - stage: deploy release
-      script:
-        - npm run dist
-        - echo "Deploy Github release"
-      deploy:
-        provider: releases
-        api_key:
-          secure: hnLAyiOwE7joti7MYMuFmInK8467M9d2RY+viWGlmhPwedp1HjGj1JkKkJ4A8gbmh5vVH9Zuj5zfUKpodmI7NoA4Q7Rj/qlFTgDzOoWdXzEpQcmYEjJR4z0NcAYIrXXeV2GHsLX70A8Z49uO5Y/mdGyvmroG3DxD6nME2LRd8+QgYo14tt2JdZyzcl5F1qAx8/5MaT8hXyed3Utgola26sHGs4zt3VJTVsiyRvIbFxrhd5Ki3RlPN5/qhza9n6zBA3w5vyID/3njz1LZXY/rPPfOwYbbZV341LF2KxIz9uH4rHEvt9v307L9DLTgPfDtt22mErprqVqjAYdKnhGi6T0ZsAX1CbZMfOwFzNKXhT2EhXQBrsjbk3lpjrytPUthOZtwsalrwf1mCkCmeQM+5fSOKBPwU1ul9dOdpP2RNX9X8m4+8/Hs+UnFEsUjThdXt5z31xCwGnoyvI+MC2tW9sB7D//v8R9d22lzf3Bmbl64ixbK1admievGkpH1u0VMfP/tl+1pazyK3xBViC25D+NYgBzbOQ8aBmt/xy22ga9zUkHqNY4WvRPp95s3aUwElwrQpunddQh/lwCnxc2OhTt4yNKFlkKcU+A6EvDzT6MxpBOHal9JWtR6wxqX/0l4actI9EKS7qMol8SB+wK0NArZHOw3bVvH4oY8uhOx3yA=
-        skip_cleanup: true
-        draft: true
-        file:
-          - dist/*
-          - lib/*
-          - package.json
-        on:
-          repo: pieplu/react-jsonschema-form
-          branch: dist
+  - stage: deploy release
+    script:
+    - npm run dist
+    - echo "Deploy Github release"
+    deploy:
+      provider: releases
+      api_key:
+        secure: MCQAAGeFP2xJQmjYKX+G5rMP/1PlsqhpAPK4d2wsF9AMi9S4OtNd9IjRwW9YllrNsXbnjDcpBbgqySZZ6n4z09jM/VEUVbbpSk7/uEYtrOxWuvWwcaX4ZW1qb1mgTadHbmgbPgUOAZ7ME7Ektty6tfC/Q7Fv0jpgfQ9eW46CknMhri2hR6erVrlamshWw3xt+/oOaMS7MRaLYvwjX5KAzy4Vr7ZaXt7km23jWlOI+YlaLLu5Ujq1yWCn1uzLtFvo5CYbfXr6VJmHBwVEqtl1F0tEnQIR8P0KTfIQT+MS03sbwWJtF/sPlTCHAh5i9eooGmjWgQPMiF6gb57YsZaARk0XPExj+RMlDaTQZ+XZ7605oKB8VNO+r2r1KjUzT0Aorn3R1CAqN6UuP/ihpwWD2rwAPuFU4yE4C+EyPdGs3Fd63WjjcShHG2Jd8ilFW3WUW1k8pDS0w1KU/aQI6hh0LjF5zEThR5nvE6y2XrQiP6PjhwGHD1fbWK900st1f14BRy8DNNBglwXqOCzJfj9JjWWYlQQUEpNoiNGgAi77LLwS8mmO0uDy4lGxuu467RdIWrrMjRX53UY1kdgOWvSE3U4K1PobqPTM4+J/RGtAXagvD7070iUHvP8PHNRzA43CIGdEl2xVAbcSr8msrAB6+e665NfjORBp3wf4adXUIco=
+      skip_cleanup: true
+      draft: true
+      file:
+      - dist/*
+      - lib/*
+      - package.json
+      on:
+        repo: pieplu/react-jsonschema-form
+        branch: dist
